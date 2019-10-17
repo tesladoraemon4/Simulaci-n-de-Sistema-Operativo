@@ -1,0 +1,59 @@
+def initSemaforos(self):
+		self.s1.bloquear()
+		self.s2.desBloquear()
+		self.s3.desBloquear()
+		self.s4.desBloquear()
+		self.s5.desBloquear()
+		self.s6.bloquear()
+		self.s1p.desBloquear()
+		self.s2p.desBloquear()
+		self.s3p.desBloquear()
+
+
+	def terminarInsercion(self):
+		self.s1.desBloquear()
+		self.s2.bloquear()
+		self.s3.bloquear()
+
+		self.s4.bloquear()
+		self.s5.desBloquear()
+		self.s6.desBloquear()
+
+		self.s3p.bloquear()
+		self.s2p.bloquear()
+	def iniciarInsercion(self):
+		if((self.s3.val == 1 or self.s2.val == 1 ) and (self.s4.val == 1 ) and (self.s3p.val == 1 or self.s2p.val == 1 )):
+			return True
+		return False
+
+
+	def terminarRecorrimiento(self):
+		self.s1.bloquear()
+		self.s2.bloquear()
+		self.s3.desBloquear()
+
+		self.s4.desBloquear()
+		self.s5.bloquear()
+		self.s6.desBloquear()
+
+		self.s1p.bloquear()
+		self.s2p.desBloquear()
+	def iniciarRecorrimiento(self):
+		if((self.s2.val == 1 or self.s1.val == 1 ) and (self.s5.val == 1 ) and (self.s1p.val == 1 or self.s2p.val == 1 )):
+			return True
+		return False
+	def terminarTerminacion(self):
+		self.s1.bloquear()
+		self.s3.bloquear()
+		self.s2.desBloquear()
+
+		self.s4.desBloquear()
+		self.s5.desBloquear()
+		self.s6.bloquear()
+
+		self.s1p.desBloquear()
+		self.s3p.desBloquear()
+	def iniciarTerminacion(self):
+		if((self.s1.val == 1 or self.s3.val == 1 ) and (self.s6.val == 1 ) and (self.s1p.val == 1 or self.s3p.val == 1 )):
+			return True
+		return False

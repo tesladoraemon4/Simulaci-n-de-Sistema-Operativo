@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.5.8/js/jsplumb.min.js"></script>
+    <script type="text/javascript" src="js/clases/Nodo.js"></script>
+    <script type="text/javascript" src="js/clases/HashTable.js"></script>
+    <script type="text/javascript" src="js/initGui.js"></script>
+    <style>
+        #Inicio{
+            background-image: url('source/inicio.jpg');
+            width: 80px; 
+            height: 50px;
+            border: 1px solid ;
+            font-size:15px;
+
+        }
+        #Fin{
+            background-image: url('source/fin.jpg');
+            width: 80px; 
+            height: 50px;
+            border: 1px solid ;
+            font-size:15px;
+
+        }
+        #Flecha{
+            background-image: url('source/flecha.jpg');
+            width: 80px; 
+            height: 50px;
+            border: 1px solid ;
+            font-size:15px;
+
+        }
+        #Rectangulo{
+            background-image: url('source/rectangulo.jpg');
+            width: 80px; 
+            height: 50px;
+            border: 1px solid ;
+            font-size:15px;
+
+        }
+        #Rombo{
+            background-image: url('source/rombo.jpg');
+            width: 80px; 
+            height: 50px;
+            border: 1px solid ;
+            font-size:15px;
+            padding: 10px;
+
+        }
+        #diagramContainer{
+            width: 600px;
+            height: 250px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+            background-color: #58FA58;
+
+        }
+
+        #cajaItems{
+            background-color: #DF3A01;
+
+        }
+        .item {
+            position: absolute;
+            height:80px; width: 80px;
+            border: 1px solid blue;
+        }
+        /*
+            var nomElementos = ["Inicio","Fin","Flecha","Rectangulo","Rombo"];
+        */
+        .inicioItem, .finItem{
+            position: absolute;
+            width: 80px;
+            height: 60px;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            background: #7D7E87;
+        }
+        .flechaItem {
+            position: absolute;
+
+        }
+        .rectanguloItem {
+            position: absolute;
+            width: 200px; 
+            height: 90px; 
+            border: 3px solid #555;
+            background: #428bca;
+        }
+        .romboItem {
+            position: absolute;
+            width: 90px; 
+            height: 90px; 
+            border: 3px solid #555; 
+            background: #428bca;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+            
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+
+
+        }
+        .romboItem p[name = "contenidoItem"] {
+
+
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+
+
+
+        }
+
+
+    </style>
+   <!--
+    -->
+
+</head>
+<body>
+    <div class="container">
+          <div class="row">
+            <center>
+                <div class="col-sm-1" id="cajaItems" >
+                </div>
+            </center>
+            <div class="col-sm-3" id="diagramContainer" ondrop="drop(event)" ondragover="allowDrop(event)">
+            </div>
+        </div>
+        <div class="row">
+            <button onclick="crearDiagrama()" type="button" class="btn btn-success">GenerarDiagrama</button>
+        </div>
+    </div>
+
+
+
+
+    <!--
+    <script>
+        jsPlumb.ready(function() {
+            jsPlumb.setContainer("diagramContainer");
+            var common = {
+                isSource:true,
+                isTarget:true,
+                connector:"Straight",
+                endpoint:"Rectangle",
+                paintStyle:{ fill:"white", outlineStroke:"blue", strokeWidth:3 },
+                hoverPaintStyle:{ outlineStroke:"lightblue" },
+                connectorStyle:{ outlineStroke:"green", strokeWidth:1 },
+                connectorHoverStyle:{ strokeWidth:2 },
+                overlays:[ 
+                    ["Arrow" , { width:12, length:12, location:0.67 }]
+                ]
+            };      
+            jsPlumb.addEndpoint("item_left", { 
+                anchor:"Right"
+            }, common); 
+            cuatroConexiones("item_right",common);
+            jsPlumb.draggable("item_left");
+            jsPlumb.draggable("item_right");
+            /*Conector con flechas 
+                var common = {
+                    connector: ["Straight"],
+                    anchor: ["Left", "Right"],
+                    endpoint:"Dot"
+                };
+                jsPlumb.connect({
+                    source:"item_left",
+                    target:"item_right",
+                    paintStyle:{ stroke:"lightgray", strokeWidth:3 },
+                    endpointStyle:{ fillStyle:"lightgray", outlineStroke:"gray" },
+                    overlays:[ 
+                        ["Arrow" , { width:12, length:12, location:0.67 }]
+                    ]
+                }, common);
+            */
+        });
+        function cuatroConexiones (itemNombre ,confJSON) {
+            jsPlumb.addEndpoint(itemNombre, { 
+            anchor:"Left"
+            }, confJSON);
+
+            jsPlumb.addEndpoint(itemNombre, { 
+            anchor:"Right" 
+            }, confJSON);
+
+            jsPlumb.addEndpoint(itemNombre, { 
+            anchor:"Bottom" 
+            }, confJSON);
+
+            jsPlumb.addEndpoint(itemNombre, { 
+            anchor:"Top" 
+            }, confJSON);
+
+        }
+    </script> 
+-->
+
+</body>
+</html>
